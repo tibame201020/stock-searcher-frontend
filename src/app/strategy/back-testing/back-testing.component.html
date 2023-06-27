@@ -14,7 +14,7 @@
             <br>
         </div>
         <div class="col-12">
-            <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()">calculator</button>
+            <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()">Calculator</button>
             <span>&nbsp;&nbsp;&nbsp;</span>
             <mat-slide-toggle [(ngModel)]="this.openPriceLineSameTime" *ngIf="this.stockBumpyArray.length">同時開啟日線圖</mat-slide-toggle>
         </div>
@@ -31,11 +31,14 @@
                     <div style="max-width: 18rem;cursor:pointer" (click)="toggleClickList(stockBumpy.code)" [ngClass]="{'card bg-light mb-3': !isInClickList(stockBumpy.code)}" [ngClass]="{'card text-white bg-info mb-3': isInClickList(stockBumpy.code)}">
                         <div class="card-header">股票代號: {{stockBumpy.code}}</div>
                         <div class="card-body">
-                            <p class="card-text">計算結果: {{stockBumpy.calcResult}}</p>
+                            <p class="card-text">計算結果: {{stockBumpy.calcResult | number}}</p>
                             <p class="card-text">最低價日期: {{stockBumpy.lowestDate[0]}}-{{stockBumpy.lowestDate[1]}}-{{stockBumpy.lowestDate[2]}}</p>
-                            <p class="card-text">最低價: {{stockBumpy.lowestPrice}}</p>
+                            <p class="card-text">最低價: {{stockBumpy.lowestPrice | number}}</p>
                             <p class="card-text">最高價日期: {{stockBumpy.highestDate[0]}}-{{stockBumpy.highestDate[1]}}-{{stockBumpy.highestDate[2]}}</p>
-                            <p class="card-text">最高價: {{stockBumpy.highestPrice}}</p>
+                            <p class="card-text">最高價: {{stockBumpy.highestPrice | number}}</p>
+                            <p class="card-text">最少成交日期: {{stockBumpy.lowestTradeVolumeDate[0]}}-{{stockBumpy.lowestTradeVolumeDate[1]}}-{{stockBumpy.lowestTradeVolumeDate[2]}}
+                            </p>
+                            <p class="card-text">最少成交量(張): {{stockBumpy.lowestTradeVolume/1000 | number}}</p>
                         </div>
                     </div>
                 </div>

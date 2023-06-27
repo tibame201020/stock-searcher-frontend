@@ -1,5 +1,10 @@
 * {
-  　font-family: Comic Sans MS, serif, sans-serif, cursive, fantasy, monospace;
+  font-family: '思源黑體', '微軟正黑體-light', '微軟正黑體', '蘋方黑體', '華康麗黑體', Helvetica, Arial,
+    serif,
+    sans-serif,
+    cursive,
+    fantasy,
+    monospace !important;
 }
 
 .header-stikcy {

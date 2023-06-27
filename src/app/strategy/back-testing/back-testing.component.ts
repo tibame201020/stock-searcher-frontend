@@ -65,6 +65,7 @@ export class BackTestingComponent implements OnInit {
 
   getAllRangeOfHighAndLowPoint() {
     this.clickStockList = []
+    this.stockBumpyArray = [];
     Swal.fire({
       title: "Processing...",
       toast: true,
@@ -100,7 +101,8 @@ export class BackTestingComponent implements OnInit {
       (res) => {
         Swal.fire({
           icon: 'success',
-          timer: 3000,
+          timer: 2000,
+          timerProgressBar: true,
           title: 'calc finish',
           toast: true,
           showConfirmButton: false,
