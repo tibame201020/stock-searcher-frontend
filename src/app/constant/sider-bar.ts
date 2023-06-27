@@ -13,7 +13,7 @@ export const SEARCH_SIDE_BAR: Bar = {
 export const STRATEGY_SIDE_BAR: Bar = {
   alink: [
     {
-      name: 'backtesting',
+      name: 'STRATEGY',
       link: '/strategy/backtesting',
       icon: 'query_stats',
     },

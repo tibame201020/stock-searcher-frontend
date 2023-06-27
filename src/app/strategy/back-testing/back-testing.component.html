@@ -1,1 +1,48 @@
-back testing page
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <app-date-picker-range (newItemEvent)="getDataRange($event)"> </app-date-picker-range>
+        </div>
+        <div class="col-2">
+            <input type="text" class="stockCodeKeyInput" placeholder="Bumpy low limit" [(ngModel)]="bumpyLowLimit">
+            <input type="text" class="stockCodeKeyInput" placeholder="Bumpy High limit" [(ngModel)]="bumpyHighLimit">
+        </div>
+        <div class="col-2">
+            <input type="text" class="stockCodeKeyInput" placeholder="每日成交量最低限制(張數)" [(ngModel)]="tradeVolumeLimit">
+        </div>
+        <div class="col-12">
+            <br>
+        </div>
+        <div class="col-12">
+            <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()">calculator</button>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <mat-slide-toggle [(ngModel)]="this.openPriceLineSameTime" *ngIf="this.stockBumpyArray.length">同時開啟日線圖</mat-slide-toggle>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" *ngIf="this.stockBumpyArray.length">
+            <div class="row">
+                <div class="col-2" *ngFor="let stockBumpy of this.stockBumpyArray">
+                    <div style="max-width: 18rem;cursor:pointer" (click)="toggleClickList(stockBumpy.code)" [ngClass]="{'card bg-light mb-3': !isInClickList(stockBumpy.code)}" [ngClass]="{'card text-white bg-info mb-3': isInClickList(stockBumpy.code)}">
+                        <div class="card-header">股票代號: {{stockBumpy.code}}</div>
+                        <div class="card-body">
+                            <p class="card-text">計算結果: {{stockBumpy.calcResult}}</p>
+                            <p class="card-text">最低價日期: {{stockBumpy.lowestDate[0]}}-{{stockBumpy.lowestDate[1]}}-{{stockBumpy.lowestDate[2]}}</p>
+                            <p class="card-text">最低價: {{stockBumpy.lowestPrice}}</p>
+                            <p class="card-text">最高價日期: {{stockBumpy.highestDate[0]}}-{{stockBumpy.highestDate[1]}}-{{stockBumpy.highestDate[2]}}</p>
+                            <p class="card-text">最高價: {{stockBumpy.highestPrice}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <br>
+    </div>
+</div>

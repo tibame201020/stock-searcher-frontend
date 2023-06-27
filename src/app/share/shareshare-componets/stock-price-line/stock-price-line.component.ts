@@ -60,7 +60,7 @@ export class StockPriceLineComponent implements OnInit {
           { name: 'MA30' }
         ],
         align: 'left',
-        selected: { '開盤價': false, '收盤價': false, 'MA5': false, 'MA20': false, 'MA30': false }
+        selected: { '開盤價': false, '收盤價': false, 'MA5': false, 'MA20': false, 'MA30': false, '日K柱':false }
       },
       tooltip: {
         confine: true,
