@@ -1,0 +1,46 @@
+<form [formGroup]="this.formGroup">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <input list="codeList" type="text" class="stockCodeKeyInput" placeholder="stock code" formControlName="keyword">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <app-date-picker-range (newItemEvent)="getDataRange($event)"> </app-date-picker-range>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngIf="this.stockDatas.length && !this.getDataStatus">
+            <app-stock-price-line [inputData]="this.stockDatas"></app-stock-price-line>
+        </div>
+        <div class="col" *ngIf="this.getDataStatus">
+            <app-loading></app-loading>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+</div>
+</form>
+
+
+<datalist id='codeList'>
+    <div *ngIf="this.stockCodeList.length">
+        <div *ngFor="let companyStatus of this.stockCodeList">
+            <option value="{{companyStatus.Code}}:{{companyStatus.Name}}"></option>
+        </div>
+    </div>
+</datalist>

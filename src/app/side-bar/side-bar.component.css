@@ -1,0 +1,38 @@
+.sidebar:hover::after {
+  width: 100%;
+  background: coral;
+}
+
+.sidebar.active::after {
+  width: 100%;
+  background: cornflowerblue;
+}
+
+.sidebar::after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 3px;
+  width: 0;
+  top: 5px;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.sidebar {
+  cursor: pointer;
+  color: grey;
+  transition: all 0.3s;
+}
+
+.sidebar:hover {
+  color: black;
+}
+
+.sidebar.active {
+  color: black;
+}
+
+a {
+  text-decoration: none;
+}

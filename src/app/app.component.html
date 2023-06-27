@@ -1,0 +1,30 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="container-fluid">
+        <div class="row header-stikcy">
+          <div class="col-12 header">
+            <app-header></app-header>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <hr>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-2 sideBar" *ngIf="this.sideBarService.init()">
+                <app-side-bar class="sidebar-stikcy"></app-side-bar>
+              </div>
+              <div class="col-10 content">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

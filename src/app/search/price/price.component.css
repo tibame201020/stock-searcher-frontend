@@ -1,0 +1,19 @@
+input.stockCodeKeyInput {
+    width: 30%;
+    display: block;
+    outline: none;
+    border: none;
+    height: 2em;
+    font-size: 16px;
+    margin-bottom: 1px;
+    border-bottom: 3px solid lightgray;
+    transition: border ease-in 0.3s;
+}
+
+input.stockCodeKeyInput:hover {
+    border-bottom: 3px solid coral;
+}
+
+input.stockCodeKeyInput:focus {
+    border-bottom: 3px solid cornflowerblue;
+}

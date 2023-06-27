@@ -1,0 +1,47 @@
+* {
+  　font-family: Comic Sans MS, serif, sans-serif, cursive, fantasy, monospace;
+}
+
+.header-stikcy {
+  z-index: 999;
+  position: sticky;
+  top: 1%;
+  left: 0;
+}
+
+.sideBar {
+  width: min-content !important;
+}
+
+.sidebar-stikcy {
+  z-index: 900;
+  position: sticky;
+  top: 10%;
+  left: 0;
+}
+
+.content:hover {
+  border-left: 3px solid coral;
+}
+
+.content {
+  height: fit-content;
+  border-left: 3px solid transparent;
+  transition: border ease-in 0.7s;
+}
+
+.content:hover::after {
+  width: 100%;
+  background: coral;
+}
+
+.content::after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 3px;
+  width: 0;
+  top: 5px;
+  background: transparent;
+  transition: all 0.5s;
+}

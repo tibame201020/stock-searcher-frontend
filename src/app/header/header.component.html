@@ -1,0 +1,9 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2" *ngFor="let header of headers">
+            <a routerLink="{{ header.link }}">
+            <strong class="header" [ngClass]="this.sideBarService.isActive(header.link)">{{header.name}}<i class="material-icons" *ngIf="header.icon">{{ header.icon }}</i></strong>
+            </a>
+        </div>
+    </div>
+</div>

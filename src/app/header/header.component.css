@@ -1,0 +1,44 @@
+.header {
+    
+    cursor: pointer;
+    color: grey;
+    transition: all 0.3s;
+}
+
+.header:hover {
+    color: black;
+}
+
+.header.active {
+    color:black;
+}
+
+.header:hover::after {
+    width: 100%;
+    background: coral;
+}
+
+.header.active::after {
+    width: 100%;
+    background: cornflowerblue;
+}
+
+.header::after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0;
+    top: 5px;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.container-fluid {
+    background-color: white;
+    border-radius: 1rem;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12" *ngFor="let sidebar of this.sideBarService.sidebar.alink">
+            <a routerLink="{{ sidebar.link }}">
+            <pre class="sidebar" [ngClass]="this.sideBarService.isActive(sidebar.link)"><i class="material-icons" *ngIf="sidebar.icon">{{ sidebar.icon }}</i>{{sidebar.name}}</pre>
+            </a>
+        </div>
+    </div>
+</div>
