@@ -16,7 +16,7 @@ import { ShareModule } from './share/share/share.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SideBarComponent
+    SideBarComponent,
   ],
   imports: [BrowserModule, ShareModule, AppRoutingModule],
   providers: [],

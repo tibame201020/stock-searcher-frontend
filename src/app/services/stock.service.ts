@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { CodeParam } from '../models/CodeParam';
 import { StockData } from '../models/StockData';
 import { CompanyStatus } from '../models/CompanyStatus';
+import { StockBumpy } from '../models/StockBumpy';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class StockService {
 
   getStockData(codeParam:CodeParam): Observable<StockData[]> {
     return this.http.post<StockData[]>(environment.apiUrl + '/findStockInfo', codeParam);
+  }
+
+  getAllRangeOfHighAndLowPoint(codeParam: CodeParam): Observable<StockBumpy[]> {
+    return this.http.post<StockBumpy[]>(environment.apiUrl + '/getAllRangeOfHighAndLowPoint', codeParam);
   }
 
 

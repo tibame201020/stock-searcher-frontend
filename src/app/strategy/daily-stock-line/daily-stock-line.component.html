@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-2"><pre>股票代號: {{codeParam.code}}</pre></div>
+        <div class="col-2"><pre>開始日期: {{codeParam.beginDate}}</pre></div>
+        <div class="col-2"><pre>結束日期: {{codeParam.endDate}}</pre></div>
+    </div>
+    <div class="row">
+        <div class="col" *ngIf="this.stockDatas.length">
+            <app-stock-price-line [inputData]="this.stockDatas"></app-stock-price-line>
+        </div>
+    </div>
+</div>
