@@ -6,6 +6,8 @@ import { CodeParam } from '../models/CodeParam';
 import { StockData } from '../models/StockData';
 import { CompanyStatus } from '../models/CompanyStatus';
 import { StockBumpy } from '../models/StockBumpy';
+import { StockMAResult } from '../models/StockMAResult';
+import { CodeList } from '../models/CodeList';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,18 @@ export class StockService {
 
   getAllRangeOfHighAndLowPoint(codeParam: CodeParam): Observable<StockBumpy[]> {
     return this.http.post<StockBumpy[]>(environment.apiUrl + '/getAllRangeOfHighAndLowPoint', codeParam);
+  }
+
+  getStockMa(codeParam:CodeParam):Observable<StockMAResult[]> {
+    return this.http.post<StockMAResult[]>(environment.apiUrl + '/getStockMa', codeParam);
+  }
+
+  saveCodeList(codeList: CodeList): Observable<CodeList> {
+    return this.http.post<CodeList>(environment.apiUrl + '/saveCodeList', codeList);
+  }
+
+  getCodeListByUser(user: string): Observable<CodeList[]> {
+    return this.http.post<CodeList[]>(environment.apiUrl + '/getCodeListByUser', user);
   }
 
 

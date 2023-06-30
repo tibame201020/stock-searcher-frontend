@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill" appearance="legacy">
-  <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [max]="maxDate" disabled>
+  <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minSelectDate" [max]="maxSelectDate" disabled>
     <input matStartDate formControlName="start" placeholder="StartDate" readonly>
     <input matEndDate formControlName="end" placeholder="EndDate" readonly>
   </mat-date-range-input>

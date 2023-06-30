@@ -9,6 +9,7 @@ export class StockPriceLineComponent implements OnInit {
 
   options: any;
   @Input() inputData: any;
+  @Input() stockMAs: any;
   categoryData: string[] = [];
   values: string[][] = [];
   constructor() { }
@@ -27,12 +28,15 @@ export class StockPriceLineComponent implements OnInit {
 
   generateChart() {
     this.splitData();
-
     const xAxisData = this.categoryData;
     const openPrice = [];
     const closePrice = [];
     const highestPrice = [];
     const lowestPrice = [];
+    const ma5 = [];
+    const ma10 = [];
+    const ma20 = [];
+    const ma60 = [];
     const kLineCandlestick = this.values;
 
     const upColor = '#ec0000';
@@ -44,8 +48,16 @@ export class StockPriceLineComponent implements OnInit {
       openPrice.push(this.values[i][0]);
       closePrice.push(this.values[i][1]);
       lowestPrice.push(this.values[i][2]);
-      highestPrice.push(this.values[i][3]);
+      highestPrice.push(this.values[i][3]);;
     }
+
+    for (let i = 0; i < this.stockMAs.length; i++) {
+      ma5.push(this.stockMAs[i].ma5);
+      ma10.push(this.stockMAs[i].ma10);
+      ma20.push(this.stockMAs[i].ma20);
+      ma60.push(this.stockMAs[i].ma60)
+    }
+
 
     this.options = {
       legend: {
@@ -56,11 +68,12 @@ export class StockPriceLineComponent implements OnInit {
           { name: '最低價' },
           { name: '日K柱' },
           { name: 'MA5' },
+          { name: 'MA10' },
           { name: 'MA20' },
-          { name: 'MA30' }
+          { name: 'MA60' }
         ],
         align: 'left',
-        selected: { '開盤價': false, '收盤價': false, 'MA5': false, 'MA20': false, 'MA30': false, '日K柱':false }
+        selected: { '開盤價': true, '收盤價': true, '最高價': false, '最低價': false, 'MA5': true, 'MA10': false, 'MA20': false, 'MA60': false, '日K柱':false }
       },
       tooltip: {
         confine: true,
@@ -157,7 +170,16 @@ export class StockPriceLineComponent implements OnInit {
         {
           name: 'MA5',
           type: 'line',
-          data: this.calculateMA(5),
+          data: ma5,
+          smooth: true,
+          lineStyle: {
+            normal: { opacity: 0.5 }
+          }
+        },
+        {
+          name: 'MA10',
+          type: 'line',
+          data: ma10,
           smooth: true,
           lineStyle: {
             normal: { opacity: 0.5 }
@@ -166,16 +188,16 @@ export class StockPriceLineComponent implements OnInit {
         {
           name: 'MA20',
           type: 'line',
-          data: this.calculateMA(20),
+          data: ma20,
           smooth: true,
           lineStyle: {
             normal: { opacity: 0.5 }
           }
         },
         {
-          name: 'MA30',
+          name: 'MA60',
           type: 'line',
-          data: this.calculateMA(30),
+          data: ma60,
           smooth: true,
           lineStyle: {
             normal: { opacity: 0.5 }
