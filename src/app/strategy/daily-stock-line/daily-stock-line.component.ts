@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CodeParam } from 'src/app/models/CodeParam';
 import { StockData } from 'src/app/models/StockData';
+import { StockMAResult } from 'src/app/models/StockMAResult';
 import { StockService } from 'src/app/services/stock.service';
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class DailyStockLineComponent implements OnInit {
   stockDatas:StockData[] = [];
+  stockMAs:StockMAResult[] = [];
 
   constructor(public dialogRef: MatDialogRef<DailyStockLineComponent>,
     @Inject(MAT_DIALOG_DATA) public codeParam: CodeParam,
@@ -30,7 +32,10 @@ export class DailyStockLineComponent implements OnInit {
       res => {
         Swal.close();
         this.stockDatas = res;
-      }
-    )
+      })
+    this.stockService.getStockMa(this.codeParam).subscribe(
+      res => {
+        this.stockMAs = res;
+      })
   }
 }

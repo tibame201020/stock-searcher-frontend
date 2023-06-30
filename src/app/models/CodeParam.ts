@@ -15,4 +15,5 @@ export interface CodeParam {
     bumpyHighLimit:number;
     bumpyLowLimit:number;
     tradeVolumeLimit:number;
+    beforeEndDateDays:number;
 }

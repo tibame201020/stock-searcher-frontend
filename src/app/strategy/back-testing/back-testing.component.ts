@@ -3,6 +3,7 @@ import { StockService } from 'src/app/services/stock.service';
 import { CodeParam } from 'src/app/models/CodeParam';
 import Swal from 'sweetalert2';
 import { StockBumpy } from 'src/app/models/StockBumpy';
+import { CodeList } from 'src/app/models/CodeList';
 import { MatDialog } from '@angular/material/dialog';
 import { DailyStockLineComponent } from '../daily-stock-line/daily-stock-line.component';
 
@@ -18,6 +19,10 @@ export class BackTestingComponent implements OnInit {
   bumpyHighLimit: string = "";
   bumpyLowLimit: string = "";
   tradeVolumeLimit: string = "";
+  beforeEndDateDays:string = "";
+
+
+  codeListArray:CodeList[] = [];
   stockBumpyArray: StockBumpy[] = [];
   clickStockList: string[] = [];
   openPriceLineSameTime: boolean = true;
@@ -86,6 +91,10 @@ export class BackTestingComponent implements OnInit {
       tradeVolumeLimit = 0;
     }
 
+    let beforeEndDateDays = parseInt(this.beforeEndDateDays);
+    if (!beforeEndDateDays) {
+      beforeEndDateDays = 0;
+    }
 
 
     let codeParam: CodeParam = {
@@ -94,7 +103,8 @@ export class BackTestingComponent implements OnInit {
       endDate: this.endDate,
       bumpyHighLimit: bumpyHighLimit,
       bumpyLowLimit: bumpyLowLimit,
-      tradeVolumeLimit: tradeVolumeLimit * 1000
+      tradeVolumeLimit: tradeVolumeLimit * 1000,
+      beforeEndDateDays: beforeEndDateDays
     }
 
     this.stockService.getAllRangeOfHighAndLowPoint(codeParam).subscribe(
@@ -114,7 +124,43 @@ export class BackTestingComponent implements OnInit {
         }
       }
     )
+  }
 
+  saveCalcResult() {
+    Swal.fire({
+      title: '輸入儲存名稱',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'save',
+      cancelButtonText: 'cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(result.value);
+      }
+    });
+  }
+
+  saveCodeList(codeList:CodeList) {
+    this.stockService.saveCodeList(codeList).subscribe(
+      res => {
+        if (res) {
+          Swal.fire({
+            icon: 'success',
+            timer: 2000,
+            timerProgressBar: true,
+            title: 'save success',
+            toast: true,
+            showConfirmButton: false,
+          })
+        }
+      }
+    )
+  }
+
+  getCodeListByUser(user:string){
+    this.stockService.getCodeListByUser(user).subscribe(
+      res => this.codeListArray = res
+    )
   }
 
 }

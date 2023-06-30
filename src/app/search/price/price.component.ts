@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { CodeParam } from 'src/app/models/CodeParam';
 import { StockData } from 'src/app/models/StockData';
 import { CompanyStatus } from 'src/app/models/CompanyStatus';
+import { StockMAResult } from 'src/app/models/StockMAResult';
 import { StockService } from 'src/app/services/stock.service';
 import Swal from 'sweetalert2';
 
@@ -16,6 +17,7 @@ export class PriceComponent implements OnInit {
   beginDate: any;
   endDate: any;
   stockDatas: StockData[] = [];
+  stockMAs:StockMAResult[] = [];
 
   getDataStatus = false;
 
@@ -66,17 +68,26 @@ export class PriceComponent implements OnInit {
       endDate: this.endDate,
       bumpyHighLimit: 0,
       bumpyLowLimit: 0,
-      tradeVolumeLimit: 0
+      tradeVolumeLimit: 0,
+      beforeEndDateDays: 0
     };
 
     this.getDataStatus = true;
 
     this.stockService.getStockData(codeParam).subscribe((res) => {
-      this.getDataStatus = false;
       if (res) {
         this.stockDatas = res;
       } else {
         this.stockDatas = [];
+      }
+    });
+
+    this.stockService.getStockMa(codeParam).subscribe((res) => {
+      this.getDataStatus = false;
+      if (res) {
+        this.stockMAs = res;
+      } else {
+        this.stockMAs = [];
       }
     });
   }

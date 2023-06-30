@@ -10,12 +10,14 @@ export class DatePickerRangeComponent implements OnInit {
   dateRange: any;
 
   @Output() newItemEvent = new EventEmitter<any>();
-  maxDate = new Date();
-  minDate = new Date(new Date().setDate(this.maxDate.getDate() - 30 * 2));
-  financialMinDate = new Date(new Date().setDate(this.maxDate.getDate() - 15));
+  nowDate = new Date();
+  minSelectDate = new Date(2023, 0, 1);
+  maxSelectDate = new Date(new Date().setDate(this.nowDate.getDate() - 1));
+  minDate = new Date(new Date().setDate(this.nowDate.getDate() - 30 * 2));
+  financialMinDate = new Date(new Date().setDate(this.nowDate.getDate() - 15));
   range = this.formBuilder.group({
     start: [this.minDate],
-    end: [this.maxDate],
+    end: [this.maxSelectDate],
   });
   constructor(private formBuilder:FormBuilder) { }
 

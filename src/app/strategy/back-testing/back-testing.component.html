@@ -9,6 +9,7 @@
         </div>
         <div class="col-2">
             <input type="text" class="stockCodeKeyInput" placeholder="每日成交量最低限制(張數)" [(ngModel)]="tradeVolumeLimit">
+            <input type="text" class="stockCodeKeyInput" placeholder="只管結束日幾日以前" [(ngModel)]="beforeEndDateDays">
         </div>
         <div class="col-12">
             <br>
@@ -17,6 +18,8 @@
             <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()">Calculator</button>
             <span>&nbsp;&nbsp;&nbsp;</span>
             <mat-slide-toggle [(ngModel)]="this.openPriceLineSameTime" *ngIf="this.stockBumpyArray.length">同時開啟日線圖</mat-slide-toggle>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <button type="button" class="btn btn-warning" (click)="saveCalcResult()" *ngIf="this.stockBumpyArray.length">儲存篩選結果</button>
         </div>
     </div>
     <div class="row">
