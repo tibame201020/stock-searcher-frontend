@@ -69,7 +69,8 @@ export class PriceComponent implements OnInit {
       bumpyHighLimit: 0,
       bumpyLowLimit: 0,
       tradeVolumeLimit: 0,
-      beforeEndDateDays: 0
+      beforeEndDateDays: 0,
+      klineCnt:0
     };
 
     this.getDataStatus = true;

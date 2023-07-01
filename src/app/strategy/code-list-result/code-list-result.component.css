@@ -1,0 +1,19 @@
+
+.codeListName {
+  border: 1px solid aliceblue;
+  border-radius: 5%;
+  cursor: pointer;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.selectToCompare {
+  border: 1px solid lightcoral;
+}
+
+.stockCard{
+  border: 2px solid darkcyan;
+  border-radius: 5%;
+  padding: 1rem;
+  margin: 1rem;
+}

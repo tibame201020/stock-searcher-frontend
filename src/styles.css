@@ -2,3 +2,27 @@
 @import "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css";
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+input.stockCodeKeyInput {
+  width: 100%;
+  display: block;
+  outline: none;
+  border: none;
+  height: 2em;
+  font-size: 16px;
+  margin-bottom: 1px;
+  border-bottom: 3px solid lightgray;
+  transition: border ease-in 0.3s;
+}
+
+input.stockCodeKeyInput:hover {
+  border-bottom: 3px solid coral;
+}
+
+input.stockCodeKeyInput:focus {
+  border-bottom: 3px solid cornflowerblue;
+}
+.mat-tab-body-content{
+  overflow: hidden!important;
+}

@@ -17,5 +17,10 @@ export const STRATEGY_SIDE_BAR: Bar = {
       link: '/strategy/backtesting',
       icon: 'query_stats',
     },
+    {
+      name: 'CODE_LIST',
+      link: '/strategy/codelist',
+      icon: 'dataset',
+    },
   ],
 };

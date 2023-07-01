@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input type="text" class="stockCodeKeyInput" placeholder="search" [(ngModel)]="keyword">
+    </div>
+    <div class="col-1">
+      <i class="material-icons" style="cursor:pointer;" (click)="createCodeList()">add</i>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-warning btn-sm" (click)="openCodeListResult()">取codeList交集</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.codeListArray.length">
+    <div class="col">
+      <hr>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.codeListArray.length">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Create</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let codeList of this.codeListArray let idx=index" style="cursor: pointer;" (click)="editOrDelCodeList(codeList, idx)">
+            <td *ngIf="codeList.name.includes(keyword)">{{codeList.name}}</td>
+            <td *ngIf="codeList.name.includes(keyword)">{{codeList.date | date: 'yyyy-MM-dd' : 'Asia/Taipei'}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="row">
+    <div class="col">
+      <br>
+    </div>
+  </div>
+</div>

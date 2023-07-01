@@ -11,9 +11,10 @@ export interface CodeParam {
      * 結束日期
      */
     endDate:string;
-    
+
     bumpyHighLimit:number;
     bumpyLowLimit:number;
     tradeVolumeLimit:number;
     beforeEndDateDays:number;
+    klineCnt:number;
 }
