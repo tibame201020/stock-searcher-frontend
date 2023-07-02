@@ -21,22 +21,22 @@ export class BackTestingComponent implements OnInit {
   bumpyLowLimit: string = '';
   tradeVolumeLimit: string = '';
   beforeEndDateDays: string = '';
-  klineCnt:string='';
+  klineCnt: string = '';
   selectTarget: string = 'all';
 
   codeList?: CodeList;
   codeListArray: CodeList[] = [];
   stockBumpyArray: StockBumpy[] = [];
   clickStockList: string[] = [];
-  openPriceLineSameTime: boolean = true;
-  detailInfo:boolean= false;
+  openPriceLineSameTime: boolean = false;
+  detailInfo: boolean = false;
 
-  constructor(private stockService: StockService, public dialog: MatDialog) {}
+  constructor(private stockService: StockService, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
   }
 
-  toggleClickList(code: string, beginDate:string, endDate:string) {
+  toggleClickList(code: string, beginDate: string, endDate: string) {
     if (this.clickStockList.includes(code)) {
       this.clickStockList.splice(this.clickStockList.indexOf(code), 1);
       return;
@@ -110,7 +110,7 @@ export class BackTestingComponent implements OnInit {
       bumpyLowLimit: bumpyLowLimit,
       tradeVolumeLimit: tradeVolumeLimit * 1000,
       beforeEndDateDays: beforeEndDateDays,
-      klineCnt:klineCnt
+      klineCnt: klineCnt
     };
 
     this.stockService
@@ -140,21 +140,101 @@ export class BackTestingComponent implements OnInit {
       confirmButtonText: 'Save',
       cancelButtonText: 'Cancel',
     }).then((result) => {
-      if (result.isConfirmed) {
-        let name = result.value;
-        if (!name) {
-          return;
-        }
+      let name = result.value;
+      if (!name) {
         Swal.fire({
-          title: 'Processing...',
+          text: 'codelist need name',
+          icon: 'error',
           toast: true,
           showConfirmButton: false,
         });
-        Swal.showLoading();
-        let codeList = this.wrapperCodeList(name);
-        this.saveCodeList(codeList);
+        return;
+      }
+
+      if (result.isConfirmed) {
+        this.createCodeListAll(name)
       }
     });
+  }
+
+  saveChooseCalcResult() {
+    Swal.fire({
+      title: '輸入要儲存的名稱',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      let name = result.value;
+      if (!name) {
+        Swal.fire({
+          text: 'codelist need name',
+          icon: 'error',
+          toast: true,
+          showConfirmButton: false,
+        });
+        return;
+      }
+
+      if (result.isConfirmed) {
+        this.createCodeListSelect(name)
+      }
+    });
+  }
+
+  createCodeListAll(name:string) {
+    Swal.fire({
+      title: 'Processing...',
+      toast: true,
+      showConfirmButton: false,
+    });
+    Swal.showLoading();
+    let codeList = this.wrapperCodeList(name);
+    this.saveCodeList(codeList);
+  }
+
+  createCodeListSelect(name:string){
+    if (!this.clickStockList.length) {
+      Swal.fire({
+        title: '並未從篩選結果選中任何股票',
+        icon: 'error',
+        toast: true,
+        showConfirmButton: false,
+      });
+      return;
+    }
+    Swal.fire({
+      title: 'Processing...',
+      toast: true,
+      showConfirmButton: false,
+    });
+    Swal.showLoading();
+    let codeList = this.wrapperChooseList(name);
+    this.saveCodeList(codeList);
+  }
+
+  wrapperChooseList(name: string) {
+    let user = 'dev-user';
+    let date = new Date();
+    let codes: CompanyStatus[] = [];
+    this.clickStockList.forEach((code) => {
+      let companyStatus: CompanyStatus = {
+        Code: code,
+        Name: '',
+      };
+
+      codes.push(companyStatus);
+    });
+
+    let codeList: CodeList = {
+      codeListId: user + '-' + name + '-' + date,
+      name: name,
+      user: user,
+      date: date,
+      codes: codes,
+    };
+
+    return codeList;
   }
 
   wrapperCodeList(name: string) {
@@ -207,9 +287,9 @@ export class BackTestingComponent implements OnInit {
   getCodeList() {
     let dialogRef = this.dialog.open(CodeListEditComponent, {
       width: '80%',
-      height:'60%',
+      height: '60%',
       data: {
-        codeListId:this.selectTarget
+        codeListId: this.selectTarget
       },
     });
 
