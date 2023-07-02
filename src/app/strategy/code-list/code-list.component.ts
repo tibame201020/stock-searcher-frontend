@@ -90,6 +90,7 @@ export class CodeListComponent implements OnInit {
       if (result.isConfirmed) {
         this.stockService.deleteCodeList(codeList.codeListId).subscribe(
           res => {
+            this.codeListArray.splice(idx, 1)
             Swal.fire({
               icon: 'success',
               title: 'delete successful',
@@ -98,7 +99,7 @@ export class CodeListComponent implements OnInit {
               timer:500,
               toast: true
             }).then(result => {
-              this.codeListArray.splice(idx, 1)
+
             })
           }
         )

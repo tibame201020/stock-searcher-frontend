@@ -13,7 +13,7 @@
       <i class="material-icons" style="cursor:pointer;" (click)="createCodeList()">add</i>
     </div>
     <div class="col">
-      <button type="button" class="btn btn-warning btn-sm" (click)="openCodeListResult()">取codeList交集</button>
+      <button type="button" class="btn btn-warning btn-sm" (click)="openCodeListResult()" *ngIf="this.codeListArray.length">取codeList交集</button>
     </div>
   </div>
 
