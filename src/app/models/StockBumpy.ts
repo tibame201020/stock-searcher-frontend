@@ -1,5 +1,9 @@
 export interface StockBumpy {
     code:string;
+    name:string;
+    beginDate:string;
+    endDate:string;
+
     highestDate:string[];
     highestPrice:number;
 

@@ -63,4 +63,19 @@ export class StockService {
       codeListId
     );
   }
+
+  deleteCodeList(codeListId: string): Observable<void> {
+    return this.http.post<void>(
+      environment.apiUrl + '/deleteCodeList',
+      codeListId
+    );
+  }
+
+  getIntersectionFromCodeList(codeListIds: string[]): Observable<CompanyStatus[]> {
+    return this.http.post<CompanyStatus[]>(
+      environment.apiUrl + '/getIntersectionFromCodeList',
+      codeListIds
+    );
+  }
+
 }

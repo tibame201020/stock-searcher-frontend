@@ -1,22 +1,81 @@
-input.stockCodeKeyInput {
+.example-full-width {
   width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.drop-down-menu {
+  border: #ccc 1px solid;
+  display: inline-block;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+ul.drop-down-menu li {
+  position: relative;
+  white-space: nowrap;
+  border-right: #ccc 1px solid;
+}
+
+ul.drop-down-menu > li:last-child {
+  border-right: none;
+}
+
+ul.drop-down-menu > li {
+  float: left;
+}
+
+ul.drop-down-menu a {
+  background-color: #fff;
+  color: #333;
   display: block;
-  outline: none;
-  border: none;
-  height: 2em;
-  font-size: 16px;
-  margin-bottom: 1px;
-  border-bottom: 3px solid lightgray;
-  transition: border ease-in 0.3s;
+  padding: 0 30px;
+  text-decoration: none;
+  line-height: 40px;
 }
 
-input.stockCodeKeyInput:hover {
-  border-bottom: 3px solid coral;
+ul.drop-down-menu a:hover {
+  background-color: lightskyblue;
+  color: #fff;
 }
 
-input.stockCodeKeyInput:focus {
-  border-bottom: 3px solid cornflowerblue;
+ul.drop-down-menu li:hover > a {
+  background-color: lightskyblue;
+  color: #fff;
 }
-.mat-tab-body-content{
-  overflow: hidden!important;
+
+ul.drop-down-menu ul {
+  border: #ccc 1px solid;
+  position: absolute;
+  z-index: 99;
+  left: -1px;
+  top: 100%;
+  min-width: 180px;
+}
+
+ul.drop-down-menu ul li {
+  border-bottom: #ccc 1px solid;
+}
+
+ul.drop-down-menu ul li:last-child {
+  border-bottom: none;
+}
+
+ul.drop-down-menu ul ul {
+  z-index: 999;
+  top: 10px;
+  left: 90%;
+}
+
+ul.drop-down-menu ul {
+  display: none;
+}
+
+ul.drop-down-menu li:hover > ul {
+  display: block;
 }

@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <strong>Code List 編輯</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"><br></div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <input type="text" class="stockCodeKeyInput" placeholder="name" [(ngModel)]="this.codeList.name">
+    </div>
+    <div class="col-6">
+      <button type="button" class="btn btn-info btn-sm" (click)="saveCodeList()">save</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="this.formGroup">
+        <input list="codeList" type="text" class="stockCodeKeyInput" placeholder="stock code" formControlName="keyword">
+      </form>
+    </div>
+    <div class="col-6">
+      <button type="button" class="btn btn-warning btn-sm"(click)="addToCodes()">add to list</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.codeList.codes.length">
+    <div class="col">
+      <hr>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.codeList.codes.length">
+    <div class="col">
+      <div class="row">
+        <div class="col-2" *ngFor="let item of this.codeList.codes let idx=index;" style="cursor: pointer;" (click)="removeToCodes(idx, item.Code)">
+          <div class="card">
+            <div class="card-header">
+              {{item.Code}} {{item.Name}}
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="this.codeList.codes.length">
+    <div class="col">
+      <hr>
+    </div>
+  </div>
+</div>
+
+
+
+<datalist id='codeList'>
+  <div *ngIf="this.stockCodeList.length">
+      <div *ngFor="let companyStatus of this.stockCodeList">
+          <option value="{{companyStatus.Code}}:{{companyStatus.Name}}"></option>
+      </div>
+  </div>
+</datalist>
