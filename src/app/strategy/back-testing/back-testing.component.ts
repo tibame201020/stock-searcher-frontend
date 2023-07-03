@@ -140,18 +140,17 @@ export class BackTestingComponent implements OnInit {
       confirmButtonText: 'Save',
       cancelButtonText: 'Cancel',
     }).then((result) => {
-      let name = result.value;
-      if (!name) {
-        Swal.fire({
-          text: 'codelist need name',
-          icon: 'error',
-          toast: true,
-          showConfirmButton: false,
-        });
-        return;
-      }
-
       if (result.isConfirmed) {
+        let name = result.value;
+        if (!name) {
+          Swal.fire({
+            text: 'codelist need name',
+            icon: 'error',
+            toast: true,
+            showConfirmButton: false,
+          });
+          return;
+        }
         this.createCodeListAll(name);
       }
     });
@@ -165,18 +164,17 @@ export class BackTestingComponent implements OnInit {
       confirmButtonText: 'Save',
       cancelButtonText: 'Cancel',
     }).then((result) => {
-      let name = result.value;
-      if (!name) {
-        Swal.fire({
-          text: 'codelist need name',
-          icon: 'error',
-          toast: true,
-          showConfirmButton: false,
-        });
-        return;
-      }
-
       if (result.isConfirmed) {
+        let name = result.value;
+        if (!name) {
+          Swal.fire({
+            text: 'codelist need name',
+            icon: 'error',
+            toast: true,
+            showConfirmButton: false,
+          });
+          return;
+        }
         this.createCodeListSelect(name);
       }
     });
