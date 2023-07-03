@@ -1,0 +1,11 @@
+.stickyhere {
+  z-index: 500;
+  position: sticky;
+  top: 5%;
+  left: 0;
+  background-color: transparent;
+  border-color: transparent;
+  border-style: solid !important;
+  border-radius: 5px;
+  width: 100%;
+}
