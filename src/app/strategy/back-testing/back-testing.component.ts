@@ -31,7 +31,7 @@ export class BackTestingComponent implements OnInit {
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
 
-  constructor(private stockService: StockService, public dialog: MatDialog) { }
+  constructor(private stockService: StockService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
   }
@@ -110,7 +110,7 @@ export class BackTestingComponent implements OnInit {
       bumpyLowLimit: bumpyLowLimit,
       tradeVolumeLimit: tradeVolumeLimit * 1000,
       beforeEndDateDays: beforeEndDateDays,
-      klineCnt: klineCnt
+      klineCnt: klineCnt,
     };
 
     this.stockService
@@ -152,7 +152,7 @@ export class BackTestingComponent implements OnInit {
       }
 
       if (result.isConfirmed) {
-        this.createCodeListAll(name)
+        this.createCodeListAll(name);
       }
     });
   }
@@ -177,12 +177,12 @@ export class BackTestingComponent implements OnInit {
       }
 
       if (result.isConfirmed) {
-        this.createCodeListSelect(name)
+        this.createCodeListSelect(name);
       }
     });
   }
 
-  createCodeListAll(name:string) {
+  createCodeListAll(name: string) {
     Swal.fire({
       title: 'Processing...',
       toast: true,
@@ -193,7 +193,7 @@ export class BackTestingComponent implements OnInit {
     this.saveCodeList(codeList);
   }
 
-  createCodeListSelect(name:string){
+  createCodeListSelect(name: string) {
     if (!this.clickStockList.length) {
       Swal.fire({
         title: '並未從篩選結果選中任何股票',
@@ -289,12 +289,12 @@ export class BackTestingComponent implements OnInit {
       width: '80%',
       height: '60%',
       data: {
-        codeListId: this.selectTarget
+        codeListId: this.selectTarget,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getCodeListByUser('dev-user')
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getCodeListByUser('dev-user');
     });
   }
 }
