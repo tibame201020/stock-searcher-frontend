@@ -30,10 +30,15 @@ export class BackTestingComponent implements OnInit {
   clickStockList: string[] = [];
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
+  minSearchBar:boolean = false;
 
   constructor(private stockService: StockService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
+  }
+
+  toggleMinSearchBar(){
+    this.minSearchBar = !this.minSearchBar;
   }
 
   toggleClickList(code: string, beginDate: string, endDate: string) {
@@ -125,6 +130,7 @@ export class BackTestingComponent implements OnInit {
           showConfirmButton: false,
         });
         if (res) {
+          this.minSearchBar = true;
           this.stockBumpyArray = res;
         } else {
           this.stockBumpyArray = [];

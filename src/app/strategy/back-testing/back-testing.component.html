@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row stickyhere">
-    <div class="col-12">
+    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <app-date-picker-range (newItemEvent)="getDataRange($event)"> </app-date-picker-range>
     </div>
-    <div class="col-3">
+    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Bumpy low limit" [(ngModel)]="bumpyLowLimit">
       </mat-form-field>
@@ -11,7 +11,7 @@
         <input matInput placeholder="Bumpy High limit" [(ngModel)]="bumpyHighLimit">
       </mat-form-field>
     </div>
-    <div class="col-3">
+    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="每日成交量最低限制(張數)" [(ngModel)]="tradeVolumeLimit">
       </mat-form-field>
@@ -19,7 +19,7 @@
         <input matInput placeholder="從endDate往前推日K棒數" [(ngModel)]="klineCnt">
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field>
         <mat-select placeholder="篩選範圍" [(ngModel)]="selectTarget">
           <mat-option [value]="'all'">全部</mat-option>
@@ -32,7 +32,7 @@
       <button type="button" class="btn btn-danger btn-sm" (click)="getCodeList()"
         *ngIf="this.selectTarget != 'all'">編輯codeList</button>
     </div>
-    <div class="col-12">
+    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <br>
     </div>
 
@@ -64,6 +64,10 @@
         </li>
       </ul>
     </div>
+    <div class="col-1" *ngIf="this.stockBumpyArray.length">
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="this.minSearchBar">arrow_circle_down</i>
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="!this.minSearchBar">arrow_circle_up</i>
+    </div>
   </div>
   <div class="row">
     <div class="col-12">
@@ -73,7 +77,7 @@
   <div class="row">
     <div class="col-12" *ngIf="this.stockBumpyArray.length &&!this.codeList">
       <div class="row">
-        <div class="col-4" *ngFor="let stockBumpy of this.stockBumpyArray">
+        <div class="col-3"  *ngFor="let stockBumpy of this.stockBumpyArray">
           <br>
           <div style="max-width: 18rem;cursor:pointer"
             (click)="toggleClickList(stockBumpy.code, stockBumpy.beginDate, stockBumpy.endDate)"
