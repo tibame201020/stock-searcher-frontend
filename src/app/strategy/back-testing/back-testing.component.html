@@ -77,23 +77,22 @@
           <br>
           <div style="max-width: 18rem;cursor:pointer"
             (click)="toggleClickList(stockBumpy.code, stockBumpy.beginDate, stockBumpy.endDate)"
-            [ngClass]="{'card bg-light mb-3': !isInClickList(stockBumpy.code)}"
-            [ngClass]="{'card text-white bg-info mb-3': isInClickList(stockBumpy.code)}">
+            [ngClass]="isInClickList(stockBumpy.code) ? 'card text-white bg-danger mb-3' : 'card text-white bg-dark mb-3'">
             <div class="card-header">{{stockBumpy.code}}-{{stockBumpy.name}}</div>
-            <div class="card-body" *ngIf="this.detailInfo">
-              <p class="card-text">開始日: {{stockBumpy.beginDate}}</p>
-              <p class="card-text">結束日: {{stockBumpy.endDate}}</p>
+            <div class="card-body">
+              <p class="card-text" *ngIf="this.detailInfo">開始日: {{stockBumpy.beginDate}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">結束日: {{stockBumpy.endDate}}</p>
               <p class="card-text">計算結果: {{stockBumpy.calcResult | number}}</p>
-              <p class="card-text">最低價日期:
+              <p class="card-text" *ngIf="this.detailInfo">最低價日期:
                 {{stockBumpy.lowestDate[0]}}-{{stockBumpy.lowestDate[1]}}-{{stockBumpy.lowestDate[2]}}</p>
-              <p class="card-text">最低價: {{stockBumpy.lowestPrice | number}}</p>
-              <p class="card-text">最高價日期:
+              <p class="card-text" *ngIf="this.detailInfo">最低價: {{stockBumpy.lowestPrice | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最高價日期:
                 {{stockBumpy.highestDate[0]}}-{{stockBumpy.highestDate[1]}}-{{stockBumpy.highestDate[2]}}</p>
-              <p class="card-text">最高價: {{stockBumpy.highestPrice | number}}</p>
-              <p class="card-text">最少成交日期:
+              <p class="card-text" *ngIf="this.detailInfo">最高價: {{stockBumpy.highestPrice | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最少成交日期:
                 {{stockBumpy.lowestTradeVolumeDate[0]}}-{{stockBumpy.lowestTradeVolumeDate[1]}}-{{stockBumpy.lowestTradeVolumeDate[2]}}
               </p>
-              <p class="card-text">最少成交量(張): {{stockBumpy.lowestTradeVolume/1000 | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最少成交量(張): {{stockBumpy.lowestTradeVolume/1000 | number}}</p>
             </div>
           </div>
         </div>
