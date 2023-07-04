@@ -66,14 +66,14 @@ export class StockPriceLineComponent implements OnInit {
           { name: '收盤價' },
           { name: '最高價' },
           { name: '最低價' },
-          { name: '日K柱' },
+          { name: '日K' },
           { name: 'MA5' },
           { name: 'MA10' },
           { name: 'MA20' },
           { name: 'MA60' }
         ],
         align: 'left',
-        selected: { '開盤價': true, '收盤價': true, '最高價': false, '最低價': false, 'MA5': true, 'MA10': false, 'MA20': false, 'MA60': false, '日K柱':false }
+        selected: { '開盤價': false, '收盤價': false, '最高價': false, '最低價': false, 'MA5': true, 'MA10': true, 'MA20': true, 'MA60': true, '日K':true }
       },
       tooltip: {
         confine: true,
@@ -144,7 +144,7 @@ export class StockPriceLineComponent implements OnInit {
           animationDelay: (idx: number) => idx * 10 + 100,
         },
         {
-          name: '日K柱',
+          name: '日K',
           type: 'candlestick',
           data: kLineCandlestick,
           itemStyle: {
