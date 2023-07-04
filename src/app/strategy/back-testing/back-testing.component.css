@@ -1,13 +1,15 @@
+.hideParam {
+  display: none;
+}
 .stickyhere {
   z-index: 500;
   position: sticky;
-  top: 7%;
+  top: 2rem;
   left: 0;
   background-color: lightcyan;
   border-color: lightcyan;
   border-style: solid !important;
   border-radius: 5px;
-  width: 100%;
 }
 
 .example-full-width {

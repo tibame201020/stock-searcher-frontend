@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row stickyhere">
-    <div class="col-12">
+    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <app-date-picker-range (newItemEvent)="getDataRange($event)"> </app-date-picker-range>
     </div>
-    <div class="col-3">
+    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Bumpy low limit" [(ngModel)]="bumpyLowLimit">
       </mat-form-field>
@@ -11,7 +11,7 @@
         <input matInput placeholder="Bumpy High limit" [(ngModel)]="bumpyHighLimit">
       </mat-form-field>
     </div>
-    <div class="col-3">
+    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="每日成交量最低限制(張數)" [(ngModel)]="tradeVolumeLimit">
       </mat-form-field>
@@ -19,7 +19,7 @@
         <input matInput placeholder="從endDate往前推日K棒數" [(ngModel)]="klineCnt">
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field>
         <mat-select placeholder="篩選範圍" [(ngModel)]="selectTarget">
           <mat-option [value]="'all'">全部</mat-option>
@@ -32,7 +32,7 @@
       <button type="button" class="btn btn-danger btn-sm" (click)="getCodeList()"
         *ngIf="this.selectTarget != 'all'">編輯codeList</button>
     </div>
-    <div class="col-12">
+    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <br>
     </div>
 
@@ -64,6 +64,10 @@
         </li>
       </ul>
     </div>
+    <div class="col-1" *ngIf="this.stockBumpyArray.length">
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="this.minSearchBar">arrow_circle_down</i>
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="!this.minSearchBar">arrow_circle_up</i>
+    </div>
   </div>
   <div class="row">
     <div class="col-12">
@@ -73,27 +77,26 @@
   <div class="row">
     <div class="col-12" *ngIf="this.stockBumpyArray.length &&!this.codeList">
       <div class="row">
-        <div class="col-4" *ngFor="let stockBumpy of this.stockBumpyArray">
+        <div class="col-3"  *ngFor="let stockBumpy of this.stockBumpyArray">
           <br>
           <div style="max-width: 18rem;cursor:pointer"
             (click)="toggleClickList(stockBumpy.code, stockBumpy.beginDate, stockBumpy.endDate)"
-            [ngClass]="{'card bg-light mb-3': !isInClickList(stockBumpy.code)}"
-            [ngClass]="{'card text-white bg-info mb-3': isInClickList(stockBumpy.code)}">
+            [ngClass]="isInClickList(stockBumpy.code) ? 'card text-white bg-danger mb-3' : 'card text-white bg-dark mb-3'">
             <div class="card-header">{{stockBumpy.code}}-{{stockBumpy.name}}</div>
-            <div class="card-body" *ngIf="this.detailInfo">
-              <p class="card-text">開始日: {{stockBumpy.beginDate}}</p>
-              <p class="card-text">結束日: {{stockBumpy.endDate}}</p>
+            <div class="card-body">
+              <p class="card-text" *ngIf="this.detailInfo">開始日: {{stockBumpy.beginDate}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">結束日: {{stockBumpy.endDate}}</p>
               <p class="card-text">計算結果: {{stockBumpy.calcResult | number}}</p>
-              <p class="card-text">最低價日期:
+              <p class="card-text" *ngIf="this.detailInfo">最低價日期:
                 {{stockBumpy.lowestDate[0]}}-{{stockBumpy.lowestDate[1]}}-{{stockBumpy.lowestDate[2]}}</p>
-              <p class="card-text">最低價: {{stockBumpy.lowestPrice | number}}</p>
-              <p class="card-text">最高價日期:
+              <p class="card-text" *ngIf="this.detailInfo">最低價: {{stockBumpy.lowestPrice | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最高價日期:
                 {{stockBumpy.highestDate[0]}}-{{stockBumpy.highestDate[1]}}-{{stockBumpy.highestDate[2]}}</p>
-              <p class="card-text">最高價: {{stockBumpy.highestPrice | number}}</p>
-              <p class="card-text">最少成交日期:
+              <p class="card-text" *ngIf="this.detailInfo">最高價: {{stockBumpy.highestPrice | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最少成交日期:
                 {{stockBumpy.lowestTradeVolumeDate[0]}}-{{stockBumpy.lowestTradeVolumeDate[1]}}-{{stockBumpy.lowestTradeVolumeDate[2]}}
               </p>
-              <p class="card-text">最少成交量(張): {{stockBumpy.lowestTradeVolume/1000 | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">最少成交量(張): {{stockBumpy.lowestTradeVolume/1000 | number}}</p>
             </div>
           </div>
         </div>
