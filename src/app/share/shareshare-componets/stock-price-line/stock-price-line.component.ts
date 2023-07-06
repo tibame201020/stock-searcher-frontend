@@ -1,18 +1,18 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { StockMAResult } from 'src/app/models/StockMAResult';
 
 @Component({
   selector: 'app-stock-price-line',
   templateUrl: './stock-price-line.component.html',
-  styleUrls: ['./stock-price-line.component.css']
+  styleUrls: ['./stock-price-line.component.css'],
 })
 export class StockPriceLineComponent implements OnInit {
-
   options: any;
   @Input() inputData: any;
-  @Input() stockMAs: any;
+  @Input() stockMAs: any[] = [];
   categoryData: string[] = [];
   values: string[][] = [];
-  constructor() { }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.inputData) {
@@ -33,10 +33,10 @@ export class StockPriceLineComponent implements OnInit {
     const closePrice = [];
     const highestPrice = [];
     const lowestPrice = [];
-    const ma5 = [];
-    const ma10 = [];
-    const ma20 = [];
-    const ma60 = [];
+    const ma5: any[] = [];
+    const ma10: any[] = [];
+    const ma20: any[] = [];
+    const ma60: any[] = [];
     const kLineCandlestick = this.values;
 
     const upColor = '#ec0000';
@@ -48,16 +48,21 @@ export class StockPriceLineComponent implements OnInit {
       openPrice.push(this.values[i][0]);
       closePrice.push(this.values[i][1]);
       lowestPrice.push(this.values[i][2]);
-      highestPrice.push(this.values[i][3]);;
+      highestPrice.push(this.values[i][3]);
     }
 
-    for (let i = 0; i < this.stockMAs.length; i++) {
-      ma5.push(this.stockMAs[i].ma5);
-      ma10.push(this.stockMAs[i].ma10);
-      ma20.push(this.stockMAs[i].ma20);
-      ma60.push(this.stockMAs[i].ma60)
+    for (let i = 0; i < xAxisData.length; i++) {
+      let dateStr = xAxisData[i];
+      this.stockMAs.some((obj) => {
+        let stockMaDate = obj.date[0] + '-' + obj.date[1] + '-' + obj.date[2];
+        if (dateStr == stockMaDate) {
+          ma5[i] = obj.ma5;
+          ma10[i] = obj.ma10;
+          ma20[i] = obj.ma20;
+          ma60[i] = obj.ma60;
+        }
+      });
     }
-
 
     this.options = {
       legend: {
@@ -70,10 +75,20 @@ export class StockPriceLineComponent implements OnInit {
           { name: 'MA5' },
           { name: 'MA10' },
           { name: 'MA20' },
-          { name: 'MA60' }
+          { name: 'MA60' },
         ],
         align: 'left',
-        selected: { '開盤價': false, '收盤價': false, '最高價': false, '最低價': false, 'MA5': true, 'MA10': true, 'MA20': true, 'MA60': true, '日K':true }
+        selected: {
+          開盤價: false,
+          收盤價: false,
+          最高價: false,
+          最低價: false,
+          MA5: true,
+          MA10: true,
+          MA20: true,
+          MA60: true,
+          日K: true,
+        },
       },
       tooltip: {
         confine: true,
@@ -84,9 +99,9 @@ export class StockPriceLineComponent implements OnInit {
           lineStyle: {
             color: '#376df4',
             width: 2,
-            opacity: 1
-          }
-        }
+            opacity: 1,
+          },
+        },
       },
       xAxis: {
         type: 'category',
@@ -99,15 +114,15 @@ export class StockPriceLineComponent implements OnInit {
       yAxis: {
         scale: true,
         splitArea: {
-          show: true
-        }
+          show: true,
+        },
       },
       dataZoom: [
         {
           type: 'inside',
           xAxisIndex: [0, 1],
           start: 0,
-          end: 100
+          end: 100,
         },
         {
           show: true,
@@ -115,8 +130,8 @@ export class StockPriceLineComponent implements OnInit {
           type: 'slider',
           y: '90%',
           start: 0,
-          end: 100
-        }
+          end: 100,
+        },
       ],
       series: [
         {
@@ -152,20 +167,20 @@ export class StockPriceLineComponent implements OnInit {
               color: upColor,
               color0: downColor,
               borderColor: upBorderColor,
-              borderColor0: downBorderColor
-            }
+              borderColor0: downBorderColor,
+            },
           },
           animationDelay: (idx: number) => idx * 10 + 100,
           markPoint: {
             label: {
               normal: {
                 show: true,
-                formatter: function (param: { value: number; } | null) {
+                formatter: function (param: { value: number } | null) {
                   return param != null ? Math.round(param.value) : '';
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
         {
           name: 'MA5',
@@ -173,8 +188,8 @@ export class StockPriceLineComponent implements OnInit {
           data: ma5,
           smooth: true,
           lineStyle: {
-            normal: { opacity: 0.5 }
-          }
+            normal: { opacity: 0.5 },
+          },
         },
         {
           name: 'MA10',
@@ -182,8 +197,8 @@ export class StockPriceLineComponent implements OnInit {
           data: ma10,
           smooth: true,
           lineStyle: {
-            normal: { opacity: 0.5 }
-          }
+            normal: { opacity: 0.5 },
+          },
         },
         {
           name: 'MA20',
@@ -191,8 +206,8 @@ export class StockPriceLineComponent implements OnInit {
           data: ma20,
           smooth: true,
           lineStyle: {
-            normal: { opacity: 0.5 }
-          }
+            normal: { opacity: 0.5 },
+          },
         },
         {
           name: 'MA60',
@@ -200,12 +215,12 @@ export class StockPriceLineComponent implements OnInit {
           data: ma60,
           smooth: true,
           lineStyle: {
-            normal: { opacity: 0.5 }
-          }
+            normal: { opacity: 0.5 },
+          },
         },
       ],
       animationEasing: 'elasticOut',
-      animationDelayUpdate: (idx: number) => idx * 5
+      animationDelayUpdate: (idx: number) => idx * 5,
     };
   }
 
@@ -214,7 +229,9 @@ export class StockPriceLineComponent implements OnInit {
     this.values = [];
 
     this.inputData.forEach((element: any) => {
-      this.categoryData.push(element.date[0] + '-' + element.date[1] + '-' + element.date[2]);
+      this.categoryData.push(
+        element.date[0] + '-' + element.date[1] + '-' + element.date[2]
+      );
       let valueArray = [];
       valueArray.push(element.openingPrice);
       valueArray.push(element.closingPrice);
@@ -238,6 +255,5 @@ export class StockPriceLineComponent implements OnInit {
       result.push(sum / dayCount);
     }
     return result;
-
   }
 }
