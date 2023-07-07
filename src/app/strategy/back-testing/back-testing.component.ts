@@ -30,14 +30,14 @@ export class BackTestingComponent implements OnInit {
   clickStockList: string[] = [];
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
-  minSearchBar:boolean = false;
+  minSearchBar: boolean = false;
 
   constructor(private stockService: StockService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
   }
 
-  toggleMinSearchBar(){
+  toggleMinSearchBar() {
     this.minSearchBar = !this.minSearchBar;
   }
 
@@ -121,18 +121,27 @@ export class BackTestingComponent implements OnInit {
     this.stockService
       .getAllRangeOfHighAndLowPoint(codeParam)
       .subscribe((res) => {
-        Swal.fire({
-          icon: 'success',
-          timer: 2000,
-          timerProgressBar: true,
-          title: 'calc finish',
-          toast: true,
-          showConfirmButton: false,
-        });
-        if (res) {
+        if (res.length) {
+          Swal.fire({
+            icon: 'success',
+            timer: 1500,
+            timerProgressBar: true,
+            title: 'calc finish',
+            toast: true,
+            showConfirmButton: false,
+          });
           this.minSearchBar = true;
           this.stockBumpyArray = res;
         } else {
+          Swal.fire({
+            icon: 'info',
+            timer: 1500,
+            timerProgressBar: true,
+            title: 'no result',
+            toast: true,
+            showConfirmButton: false,
+          });
+          this.minSearchBar = false;
           this.stockBumpyArray = [];
         }
       });
