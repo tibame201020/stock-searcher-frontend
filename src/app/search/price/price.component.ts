@@ -17,7 +17,7 @@ export class PriceComponent implements OnInit {
   beginDate: any;
   endDate: any;
   stockDatas: StockData[] = [];
-  stockMAs:StockMAResult[] = [];
+  stockMAs: StockMAResult[] = [];
 
   getDataStatus = false;
 
@@ -27,7 +27,7 @@ export class PriceComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private stockService: StockService,
+    private stockService: StockService
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +70,10 @@ export class PriceComponent implements OnInit {
       bumpyLowLimit: 0,
       tradeVolumeLimit: 0,
       beforeEndDateDays: 0,
-      klineCnt:0
+      klineCnt: 0,
+      lastOpenCalcLimit: 0,
+      lastCloseCalcLimit: 0,
+      closingPriceCompareTarget: '',
     };
 
     this.getDataStatus = true;
@@ -92,5 +95,4 @@ export class PriceComponent implements OnInit {
       }
     });
   }
-
 }

@@ -24,6 +24,10 @@ export class BackTestingComponent implements OnInit {
   klineCnt: string = '';
   selectTarget: string = 'all';
 
+  lastOpenCalcLimit: string = '';
+  lastCloseCalcLimit: string = '';
+  closingPriceCompareTarget: string = 'none';
+
   codeList?: CodeList;
   codeListArray: CodeList[] = [];
   stockBumpyArray: StockBumpy[] = [];
@@ -62,6 +66,9 @@ export class BackTestingComponent implements OnInit {
         bumpyHighLimit: 0,
         bumpyLowLimit: 0,
         tradeVolumeLimit: 0,
+        lastOpenCalcLimit: 0,
+        lastCloseCalcLimit: 0,
+        closingPriceCompareTarget: '',
       },
     });
   }
@@ -107,6 +114,16 @@ export class BackTestingComponent implements OnInit {
       klineCnt = 0;
     }
 
+    let lastOpenCalcLimit = parseInt(this.lastOpenCalcLimit);
+    if (!lastOpenCalcLimit) {
+      lastOpenCalcLimit = 0;
+    }
+
+    let lastCloseCalcLimit = parseInt(this.lastCloseCalcLimit);
+    if (!lastCloseCalcLimit) {
+      lastCloseCalcLimit = 0;
+    }
+
     let codeParam: CodeParam = {
       code: this.selectTarget,
       beginDate: this.beginDate,
@@ -116,6 +133,9 @@ export class BackTestingComponent implements OnInit {
       tradeVolumeLimit: tradeVolumeLimit * 1000,
       beforeEndDateDays: beforeEndDateDays,
       klineCnt: klineCnt,
+      lastOpenCalcLimit: lastOpenCalcLimit,
+      lastCloseCalcLimit: lastCloseCalcLimit,
+      closingPriceCompareTarget: this.closingPriceCompareTarget,
     };
 
     this.stockService
@@ -309,5 +329,13 @@ export class BackTestingComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.getCodeListByUser('dev-user');
     });
+  }
+
+  checkSelectTarget() {
+    return (
+      this.selectTarget == 'all' ||
+      this.selectTarget == 'listed' ||
+      this.selectTarget == 'tpex'
+    );
   }
 }

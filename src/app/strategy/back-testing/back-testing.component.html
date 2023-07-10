@@ -3,7 +3,7 @@
     <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <app-date-picker-range (newItemEvent)="getDataRange($event)"> </app-date-picker-range>
     </div>
-    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
+    <div class="col-2" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Bumpy low limit" [(ngModel)]="bumpyLowLimit">
       </mat-form-field>
@@ -11,18 +11,37 @@
         <input matInput placeholder="Bumpy High limit" [(ngModel)]="bumpyHighLimit">
       </mat-form-field>
     </div>
-    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
+    <div class="col-2" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="每日成交量最低限制(張數)" [(ngModel)]="tradeVolumeLimit">
+        <input matInput placeholder="最低每日成交量" [(ngModel)]="tradeVolumeLimit">
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="從endDate往前推日K棒數" [(ngModel)]="klineCnt">
+        <input matInput placeholder="往前推日K棒數" [(ngModel)]="klineCnt">
       </mat-form-field>
     </div>
-    <div class="col" [ngClass]="{'hideParam': this.minSearchBar}">
+    <div class="col-2" [ngClass]="{'hideParam': this.minSearchBar}">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="高腳線1" [(ngModel)]="lastOpenCalcLimit">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="高腳線2" [(ngModel)]="lastCloseCalcLimit">
+      </mat-form-field>
+    </div>
+    <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
+      <mat-form-field>
+        <mat-select placeholder="高於均線" [(ngModel)]="closingPriceCompareTarget">
+          <mat-option [value]="'none'">不限</mat-option>
+          <mat-option [value]="'MA60'">MA60</mat-option>
+          <mat-option [value]="'MA20'">MA20</mat-option>
+          <mat-option [value]="'MA10'">MA10</mat-option>
+          <mat-option [value]="'MA5'">MA5</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="篩選範圍" [(ngModel)]="selectTarget">
           <mat-option [value]="'all'">全部</mat-option>
+          <mat-option [value]="'listed'">上市股票</mat-option>
+          <mat-option [value]="'tpex'">上櫃股票</mat-option>
           <mat-option *ngFor="let codeList of this.codeListArray" [value]="codeList.codeListId">
             {{ codeList.name }}
           </mat-option>
@@ -30,7 +49,7 @@
       </mat-form-field>
       <span>&nbsp;&nbsp;&nbsp;</span>
       <button type="button" class="btn btn-danger btn-sm" (click)="getCodeList()"
-        *ngIf="this.selectTarget != 'all'">編輯codeList</button>
+        *ngIf="!checkSelectTarget()">編輯codeList</button>
     </div>
     <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <br>
