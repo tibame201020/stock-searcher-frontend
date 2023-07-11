@@ -51,28 +51,35 @@
       <button type="button" class="btn btn-danger btn-sm" (click)="getCodeList()"
         *ngIf="!checkSelectTarget()">編輯codeList</button>
     </div>
-    
-    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
-<mat-form-field>
-  <mat-label>K柱型態</mat-label>
-  <mat-select [formControl]="selectCandlestickTypeList" multiple>
-    <mat-select-trigger>
-      {{selectCandlestickTypeList.value?.[0] || ''}}
-      <span *ngIf="(selectCandlestickTypeList.value?.length || 0) > 1" class="example-additional-selection">
-        (+{{(selectCandlestickTypeList.value?.length || 0) - 1}} {{selectCandlestickTypeList.value?.length === 2 ? 'other' : 'others'}})
-      </span>
-    </mat-select-trigger>
-    <mat-option *ngFor="let candlestickType of candlestickTypeList" [value]="candlestickType.name">{{candlestickType.name}}</mat-option>
-  </mat-select>
-</mat-form-field>
 
+    <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>K柱型態</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let candlestickType of selectedCandlestickTypeList"
+            (removed)="remove(candlestickType)">
+            {{candlestickType.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="Type..." [matAutocomplete]="auto" [matChipInputFor]="chipList">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let candlestickType of candlestickTypeList" [value]="candlestickType">
+            {{candlestickType.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
+
     <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
       <br>
     </div>
 
     <div class="col-6" *ngIf="!this.codeList">
-      <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()" *ngIf="!this.minSearchBar">Calculator</button>
+      <button type="button" class="btn btn-info" (click)="getAllRangeOfHighAndLowPoint()"
+        *ngIf="!this.minSearchBar">Calculator</button>
       <span>&nbsp;&nbsp;&nbsp;</span>
       <button type="button" class="btn btn-warning" (click)="saveCalcResult()"
         *ngIf="this.stockBumpyArray.length">儲存篩選結果</button>
@@ -100,8 +107,10 @@
       </ul>
     </div>
     <div class="col-1" *ngIf="this.stockBumpyArray.length">
-      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="this.minSearchBar">arrow_circle_down</i>
-      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()" *ngIf="!this.minSearchBar">arrow_circle_up</i>
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()"
+        *ngIf="this.minSearchBar">arrow_circle_down</i>
+      <i class="material-icons" style="cursor: pointer;" (click)="toggleMinSearchBar()"
+        *ngIf="!this.minSearchBar">arrow_circle_up</i>
     </div>
   </div>
   <div class="row">
@@ -112,7 +121,7 @@
   <div class="row">
     <div class="col-12" *ngIf="this.stockBumpyArray.length &&!this.codeList">
       <div class="row">
-        <div class="col-3"  *ngFor="let stockBumpy of this.stockBumpyArray">
+        <div class="col-3" *ngFor="let stockBumpy of this.stockBumpyArray">
           <br>
           <div style="max-width: 18rem;cursor:pointer"
             (click)="toggleClickList(stockBumpy.code, stockBumpy.beginDate, stockBumpy.endDate)"
