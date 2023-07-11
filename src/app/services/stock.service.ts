@@ -71,11 +71,16 @@ export class StockService {
     );
   }
 
-  getIntersectionFromCodeList(codeListIds: string[]): Observable<CompanyStatus[]> {
+  getIntersectionFromCodeList(
+    codeListIds: string[]
+  ): Observable<CompanyStatus[]> {
     return this.http.post<CompanyStatus[]>(
       environment.apiUrl + '/getIntersectionFromCodeList',
       codeListIds
     );
   }
 
+  getAllCandlestickType(): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiUrl + '/getAllCandlestickType');
+  }
 }

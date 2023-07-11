@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from 'src/app/services/stock.service';
 import { CodeParam } from 'src/app/models/CodeParam';
+import { FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { StockBumpy } from 'src/app/models/StockBumpy';
 import { CompanyStatus } from 'src/app/models/CompanyStatus';
@@ -32,6 +33,8 @@ export class BackTestingComponent implements OnInit {
   codeListArray: CodeList[] = [];
   stockBumpyArray: StockBumpy[] = [];
   clickStockList: string[] = [];
+  candlestickTypeList: any[] = [];
+  selectCandlestickTypeList = new FormControl(['']);
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
   minSearchBar: boolean = false;
@@ -39,6 +42,13 @@ export class BackTestingComponent implements OnInit {
   constructor(private stockService: StockService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
+    this.getAllCandlestickType();
+  }
+
+  getAllCandlestickType() {
+    this.stockService
+      .getAllCandlestickType()
+      .subscribe((res) => (this.candlestickTypeList = res));
   }
 
   toggleMinSearchBar() {
@@ -136,6 +146,9 @@ export class BackTestingComponent implements OnInit {
       lastOpenCalcLimit: lastOpenCalcLimit,
       lastCloseCalcLimit: lastCloseCalcLimit,
       closingPriceCompareTarget: this.closingPriceCompareTarget,
+      candlestickTypeList: this.selectCandlestickTypeList.value
+        ? this.selectCandlestickTypeList.value
+        : [],
     };
 
     this.stockService
