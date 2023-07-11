@@ -20,4 +20,5 @@ export interface CodeParam {
   lastOpenCalcLimit: number;
   lastCloseCalcLimit: number;
   closingPriceCompareTarget: string;
+  candlestickTypeList: string[];
 }
