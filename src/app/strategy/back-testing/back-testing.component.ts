@@ -9,6 +9,7 @@ import { CodeList } from 'src/app/models/CodeList';
 import { MatDialog } from '@angular/material/dialog';
 import { DailyStockLineComponent } from '../daily-stock-line/daily-stock-line.component';
 import { CodeListEditComponent } from '../code-list-edit/code-list-edit.component';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-back-testing',
@@ -34,15 +35,35 @@ export class BackTestingComponent implements OnInit {
   stockBumpyArray: StockBumpy[] = [];
   clickStockList: string[] = [];
   candlestickTypeList: any[] = [];
-  selectCandlestickTypeList = new FormControl(['']);
+  selectedCandlestickTypeList: any[] = [];
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
   minSearchBar: boolean = false;
 
-  constructor(private stockService: StockService, public dialog: MatDialog) {}
+  constructor(private stockService: StockService, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
     this.getAllCandlestickType();
+  }
+
+  remove(candlestickType: any): void {
+    let idx = this.selectedCandlestickTypeList.indexOf(candlestickType);
+    if (idx >= 0) {
+      this.selectedCandlestickTypeList.splice(idx, 1);
+      this.candlestickTypeList.push(candlestickType);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    let candlestickType = event.option.value;
+    if (this.selectedCandlestickTypeList.includes(candlestickType)) {
+      return;
+    }
+    let idx = this.candlestickTypeList.indexOf(candlestickType);
+    if (idx >= 0) {
+      this.selectedCandlestickTypeList.push(candlestickType);
+      this.candlestickTypeList.splice(idx, 1);
+    }
   }
 
   getAllCandlestickType() {
@@ -134,6 +155,9 @@ export class BackTestingComponent implements OnInit {
       lastCloseCalcLimit = 0;
     }
 
+    let selectCandlestickTypeList:string[] = [];
+    this.selectedCandlestickTypeList.forEach(e => selectCandlestickTypeList.push(e.name))
+
     let codeParam: CodeParam = {
       code: this.selectTarget,
       beginDate: this.beginDate,
@@ -146,9 +170,7 @@ export class BackTestingComponent implements OnInit {
       lastOpenCalcLimit: lastOpenCalcLimit,
       lastCloseCalcLimit: lastCloseCalcLimit,
       closingPriceCompareTarget: this.closingPriceCompareTarget,
-      candlestickTypeList: this.selectCandlestickTypeList.value
-        ? this.selectCandlestickTypeList.value
-        : [],
+      candlestickTypeList: selectCandlestickTypeList
     };
 
     this.stockService
