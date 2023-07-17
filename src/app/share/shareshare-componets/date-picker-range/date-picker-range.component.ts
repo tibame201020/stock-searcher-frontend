@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-date-picker-range',
   templateUrl: './date-picker-range.component.html',
-  styleUrls: ['./date-picker-range.component.css']
+  styleUrls: ['./date-picker-range.component.css'],
 })
 export class DatePickerRangeComponent implements OnInit {
   dateRange: any;
@@ -19,45 +19,60 @@ export class DatePickerRangeComponent implements OnInit {
     start: [this.minDate],
     end: [this.maxSelectDate],
   });
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     let path = window.location.pathname;
-    if (path.includes('financial') || path.includes('summary') || path.includes('backtesting')) {
+    if (
+      path.includes('financial') ||
+      path.includes('summary') ||
+      path.includes('backtesting')
+    ) {
       this.range.patchValue({
-        start: this.financialMinDate
-      })
+        start: this.financialMinDate,
+      });
     }
     this.newItemEvent.emit(this.wrapperDateRange(this.range.value));
     this.range.valueChanges.subscribe({
-      next: value => {
+      next: (value) => {
         let dateRange = this.wrapperDateRange(value);
         if (dateRange.endDate) {
           this.newItemEvent.emit(dateRange);
         }
-    }
-    })
+      },
+    });
   }
 
-  wrapperDateRange(range:any) {
+  wrapperDateRange(range: any) {
     this.dateRange = range;
 
     let startDate = this.dateRange.start;
     let finishDate = this.dateRange.end;
 
-    if (!finishDate ||(startDate.getTime() > finishDate.getTime())) {
+    if (!finishDate || startDate.getTime() > finishDate.getTime()) {
       return {
-        'beginDate': null,
-        'endDate': null
+        beginDate: null,
+        endDate: null,
       };
     }
 
-    let beginDate = startDate ? startDate.toLocaleString('zh-TW', { year: "numeric", month: "2-digit", day: "2-digit" }) : '';
-    let endDate = finishDate ? finishDate.toLocaleString('zh-TW', { year: "numeric", month: "2-digit", day: "2-digit" }) : '';
+    let beginDate = startDate
+      ? startDate.toLocaleString('zh-TW', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+      : '';
+    let endDate = finishDate
+      ? finishDate.toLocaleString('zh-TW', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+      : '';
     return {
-      'beginDate': beginDate.replaceAll('/', '-'),
-      'endDate': endDate.replaceAll('/', '-'),
-    }
+      beginDate: beginDate.replaceAll('/', '-'),
+      endDate: endDate.replaceAll('/', '-'),
+    };
   }
-
 }

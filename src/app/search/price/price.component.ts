@@ -75,6 +75,9 @@ export class PriceComponent implements OnInit {
       lastCloseCalcLimit: 0,
       closingPriceCompareTarget: '',
       candlestickTypeList: [],
+      without4upCode: false,
+      priceLowLimit: 0,
+      priceHighLimit: 0,
     };
 
     this.getDataStatus = true;

@@ -21,4 +21,7 @@ export interface CodeParam {
   lastCloseCalcLimit: number;
   closingPriceCompareTarget: string;
   candlestickTypeList: string[];
+  without4upCode: boolean;
+  priceLowLimit: number;
+  priceHighLimit: number;
 }
