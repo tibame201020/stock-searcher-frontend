@@ -5,6 +5,14 @@
     </div>
     <div class="col-2" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field class="example-full-width">
+        <input matInput placeholder="price low limit" [(ngModel)]="priceLowLimit">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="price High limit" [(ngModel)]="priceHighLimit">
+      </mat-form-field>
+    </div>
+    <div class="col-2" [ngClass]="{'hideParam': this.minSearchBar}">
+      <mat-form-field class="example-full-width">
         <input matInput placeholder="Bumpy low limit" [(ngModel)]="bumpyLowLimit">
       </mat-form-field>
       <mat-form-field class="example-full-width">
@@ -53,6 +61,7 @@
     </div>
 
     <div class="col-12" [ngClass]="{'hideParam': this.minSearchBar}">
+      <mat-slide-toggle [(ngModel)]="this.without4upCode">過濾四碼以上stock</mat-slide-toggle>
       <mat-form-field class="example-chip-list">
         <mat-label>K柱型態</mat-label>
         <mat-chip-list #chipList aria-label="Fruit selection">
@@ -130,7 +139,8 @@
             <div class="card-body">
               <p class="card-text" *ngIf="this.detailInfo">開始日: {{stockBumpy.beginDate}}</p>
               <p class="card-text" *ngIf="this.detailInfo">結束日: {{stockBumpy.endDate}}</p>
-              <p class="card-text">計算結果: {{stockBumpy.calcResult | number}}</p>
+              <p class="card-text">股價: {{stockBumpy.lastStockMA.price | number}}</p>
+              <p class="card-text" *ngIf="this.detailInfo">計算結果: {{stockBumpy.calcResult | number}}</p>
               <p class="card-text" *ngIf="this.detailInfo">最低價日期:
                 {{stockBumpy.lowestDate[0]}}-{{stockBumpy.lowestDate[1]}}-{{stockBumpy.lowestDate[2]}}</p>
               <p class="card-text" *ngIf="this.detailInfo">最低價: {{stockBumpy.lowestPrice | number}}</p>

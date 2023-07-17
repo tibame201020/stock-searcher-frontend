@@ -39,8 +39,11 @@ export class BackTestingComponent implements OnInit {
   openPriceLineSameTime: boolean = false;
   detailInfo: boolean = false;
   minSearchBar: boolean = false;
+  priceLowLimit: string = '';
+  priceHighLimit: string = '';
+  without4upCode: boolean = true;
 
-  constructor(private stockService: StockService, public dialog: MatDialog) { }
+  constructor(private stockService: StockService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.getCodeListByUser('dev-user');
     this.getAllCandlestickType();
@@ -100,6 +103,9 @@ export class BackTestingComponent implements OnInit {
         lastOpenCalcLimit: 0,
         lastCloseCalcLimit: 0,
         closingPriceCompareTarget: '',
+        without4upCode: false,
+        priceLowLimit: 0,
+        priceHighLimit: 0,
       },
     });
   }
@@ -154,9 +160,19 @@ export class BackTestingComponent implements OnInit {
     if (!lastCloseCalcLimit) {
       lastCloseCalcLimit = 0;
     }
+    let priceLowLimit = parseInt(this.priceLowLimit);
+    if (!priceLowLimit) {
+      priceLowLimit = 0;
+    }
+    let priceHighLimit = parseInt(this.priceHighLimit);
+    if (!priceHighLimit) {
+      priceHighLimit = 0;
+    }
 
-    let selectCandlestickTypeList:string[] = [];
-    this.selectedCandlestickTypeList.forEach(e => selectCandlestickTypeList.push(e.name))
+    let selectCandlestickTypeList: string[] = [];
+    this.selectedCandlestickTypeList.forEach((e) =>
+      selectCandlestickTypeList.push(e.name)
+    );
 
     let codeParam: CodeParam = {
       code: this.selectTarget,
@@ -170,7 +186,10 @@ export class BackTestingComponent implements OnInit {
       lastOpenCalcLimit: lastOpenCalcLimit,
       lastCloseCalcLimit: lastCloseCalcLimit,
       closingPriceCompareTarget: this.closingPriceCompareTarget,
-      candlestickTypeList: selectCandlestickTypeList
+      candlestickTypeList: selectCandlestickTypeList,
+      without4upCode: this.without4upCode,
+      priceLowLimit: priceLowLimit,
+      priceHighLimit: priceHighLimit,
     };
 
     this.stockService
