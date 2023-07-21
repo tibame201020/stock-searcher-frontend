@@ -26,9 +26,14 @@ export class HeaderComponent implements OnInit {
   }
 
   wrapperLog(str: any) {
+    let type = 'info';
+    if (str.includes('===============================================')) {
+      type = 'success';
+    }
+
     const noty = new Noty({
       text: str,
-      type: 'success',
+      type: type,
       theme: 'mint',
       timeout: 3000,
       onClose: () => {
