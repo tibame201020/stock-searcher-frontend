@@ -13,6 +13,8 @@ declare var Noty: any;
 export class HeaderComponent implements OnInit {
 
   headers:alink[] = HEADER.alink;
+  private notyList: any[] = [];
+  private maxNotyCount = 10;
 
   constructor(public sideBarService:SideBarService) { }
 
@@ -24,14 +26,27 @@ export class HeaderComponent implements OnInit {
   }
 
   wrapperLog(str: any) {
-    console.log(str)
-
-    new Noty({
-      type: 'alert',
+    const noty = new Noty({
       text: str,
-      theme: 'nest',
-      timeout: 1500
-    }).show();
+      type: 'success',
+      theme: 'mint',
+      timeout: 3000,
+      onClose: () => {
+        const index = this.notyList.indexOf(noty);
+        if (index !== -1) {
+          this.notyList.splice(index, 1);
+        }
+      }
+    });
+
+    noty.show();
+    this.notyList.push(noty);
+
+    if (this.notyList.length > this.maxNotyCount) {
+      const frontNoty = this.notyList.shift();
+      frontNoty.close();
+    }
+
   }
 
 }

@@ -21,7 +21,10 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/noty/lib/noty.css",
+              "node_modules/noty/lib/themes/sunset.css",
               "node_modules/noty/lib/themes/mint.css",
+              "node_modules/noty/lib/themes/relax.css",
+              "node_modules/noty/lib/themes/light.css",
               "src/styles.css"],
             "scripts": ["node_modules/noty/lib/noty.js"]
           },
