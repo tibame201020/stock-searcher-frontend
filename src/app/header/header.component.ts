@@ -12,11 +12,12 @@ declare var Noty: any;
 })
 export class HeaderComponent implements OnInit {
 
-  headers:alink[] = HEADER.alink;
+  headers: alink[] = HEADER.alink;
   private notyList: any[] = [];
-  private maxNotyCount = 10;
+  private maxNotyCount = 7;
+  showlogs: boolean = false;
 
-  constructor(public sideBarService:SideBarService) { }
+  constructor(public sideBarService: SideBarService) { }
 
   ngOnInit(): void {
     const eventSource = new EventSource(environment.sseUrl);
@@ -25,18 +26,22 @@ export class HeaderComponent implements OnInit {
     };
   }
 
-  wrapperLog(str: any) {
+  async wrapperLog(str: any) {
+    if (!this.showlogs) {
+      return;
+    }
     let type = 'info';
     if (str.includes('===============================================')) {
       type = 'success';
     }
 
     const noty = new Noty({
+      layout: 'topRight',
       text: str,
       type: type,
       theme: 'mint',
       timeout: 3000,
-      onClose: () => {
+      onClose: async () => {
         const index = this.notyList.indexOf(noty);
         if (index !== -1) {
           this.notyList.splice(index, 1);
@@ -44,13 +49,12 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    noty.show();
-    this.notyList.push(noty);
-
     if (this.notyList.length > this.maxNotyCount) {
-      const frontNoty = this.notyList.shift();
-      frontNoty.close();
+      await this.notyList.shift().close();
     }
+
+    await noty.show();
+    this.notyList.push(noty);
 
   }
 
