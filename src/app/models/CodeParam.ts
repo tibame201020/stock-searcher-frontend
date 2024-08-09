@@ -19,7 +19,8 @@ export interface CodeParam {
   klineCnt: number;
   lastOpenCalcLimit: number;
   lastCloseCalcLimit: number;
-  closingPriceCompareTarget: string;
+  closingPriceCompareTargetHigher: string;
+  closingPriceCompareTargetLower: string;
   candlestickTypeList: string[];
   without4upCode: boolean;
   priceLowLimit: number;

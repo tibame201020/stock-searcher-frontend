@@ -37,7 +37,16 @@
     </div>
     <div class="col-3" [ngClass]="{'hideParam': this.minSearchBar}">
       <mat-form-field>
-        <mat-select placeholder="高於均線" [(ngModel)]="closingPriceCompareTarget">
+        <mat-select placeholder="高於均線" [(ngModel)]="closingPriceCompareTargetHigher">
+          <mat-option [value]="'none'">不限</mat-option>
+          <mat-option [value]="'MA60'">MA60</mat-option>
+          <mat-option [value]="'MA20'">MA20</mat-option>
+          <mat-option [value]="'MA10'">MA10</mat-option>
+          <mat-option [value]="'MA5'">MA5</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="低於均線" [(ngModel)]="closingPriceCompareTargetLower">
           <mat-option [value]="'none'">不限</mat-option>
           <mat-option [value]="'MA60'">MA60</mat-option>
           <mat-option [value]="'MA20'">MA20</mat-option>
