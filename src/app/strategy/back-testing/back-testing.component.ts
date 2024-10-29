@@ -28,7 +28,8 @@ export class BackTestingComponent implements OnInit {
 
   lastOpenCalcLimit: string = '';
   lastCloseCalcLimit: string = '';
-  closingPriceCompareTarget: string = 'none';
+  closingPriceCompareTargetHigher: string = 'none';
+  closingPriceCompareTargetLower: string = 'none';
 
   codeList?: CodeList;
   codeListArray: CodeList[] = [];
@@ -102,7 +103,8 @@ export class BackTestingComponent implements OnInit {
         tradeVolumeLimit: 0,
         lastOpenCalcLimit: 0,
         lastCloseCalcLimit: 0,
-        closingPriceCompareTarget: '',
+        closingPriceCompareTargetHigher: '',
+        closingPriceCompareTargetLower: '',
         without4upCode: false,
         priceLowLimit: 0,
         priceHighLimit: 0,
@@ -185,7 +187,8 @@ export class BackTestingComponent implements OnInit {
       klineCnt: klineCnt,
       lastOpenCalcLimit: lastOpenCalcLimit,
       lastCloseCalcLimit: lastCloseCalcLimit,
-      closingPriceCompareTarget: this.closingPriceCompareTarget,
+      closingPriceCompareTargetHigher: this.closingPriceCompareTargetHigher,
+      closingPriceCompareTargetLower: this.closingPriceCompareTargetLower,
       candlestickTypeList: selectCandlestickTypeList,
       without4upCode: this.without4upCode,
       priceLowLimit: priceLowLimit,

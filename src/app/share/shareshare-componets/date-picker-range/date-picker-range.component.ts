@@ -11,7 +11,7 @@ export class DatePickerRangeComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<any>();
   nowDate = new Date();
-  minSelectDate = new Date(2023, 0, 1);
+  minSelectDate = new Date(2020, 0, 1);
   maxSelectDate = new Date(new Date().setDate(this.nowDate.getDate()));
   minDate = new Date(new Date().setDate(this.nowDate.getDate() - 30 * 2));
   financialMinDate = new Date(new Date().setDate(this.nowDate.getDate() - 15));
