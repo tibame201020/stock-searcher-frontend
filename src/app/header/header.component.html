@@ -5,8 +5,5 @@
             <strong class="header" [ngClass]="this.sideBarService.isActive(header.link)">{{header.name}}<i class="material-icons" *ngIf="header.icon">{{ header.icon }}</i></strong>
             </a>
         </div>
-        <div class="col">
-          <mat-slide-toggle [(ngModel)]="this.showlogs">顯示log</mat-slide-toggle>
-        </div>
     </div>
 </div>
